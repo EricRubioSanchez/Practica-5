@@ -15,20 +15,26 @@ function posicioPagina() {
     $page=1;
     if ($_SERVER["REQUEST_METHOD"]=="GET"){
         //Intentem la variable del formulari page.
-        if(!isset($_GET["page"])){
-        //Si no es pot agafar posarem 1 per defecte.
-            $page=1;
-        //Si la agafem comprobem que estigui dintre del range de 0 i les pagines totals.
-        //Si no ho esta va cap a la pagina 1.
-        }else{
+        if(isset($_GET["page"])){
             $page=$_GET["page"];
-            $conexio=obrirBDD();
-            $nPagines=calcularPagines($conexio);
-            $conexio=tancarBDD($conexio);
-            if($page>$nPagines || $page<1){
-                $page=1;
-            }
+        //Intentem la variable de les cookies page.
+        }else if(isset($_COOKIE["page"])){
+            $page=unserialize($_COOKIE['page']);
+        }else{
+            //Si no es pot agafar posarem 1 per defecte.
+            $page=1;
         }
+    }
+    $conexio=obrirBDD();
+    $nPagines=calcularPagines($conexio);
+    $conexio=tancarBDD($conexio);
+            //Si la agafem comprobem que estigui dintre del range de 0 i les pagines totals.
+        //Si no ho esta va cap a la pagina 1.
+    if($page>$nPagines || $page<1){
+        $page=1;
+    }
+    else{
+        setcookie('page',serialize($page));
     }
     return $page;
 }
@@ -94,16 +100,21 @@ function getnArticlesPerPagina(){
     $nArticlesPerPagina=5;
     if ($_SERVER["REQUEST_METHOD"]=="GET"){
         //Intentem agafar la variable del formulari.
-        //Si no es pot posem 5 per defecte
-        if(!isset($_GET["nArticlesPerPagina"])){
-            $nArticlesPerPagina=5;
-        }else{
+        if(isset($_GET["nArticlesPerPagina"])){
             $nArticlesPerPagina=$_GET["nArticlesPerPagina"];
+        //Intentem agafar la variable desde les cookies
+        }else if(isset($_COOKIE["nArticlesPerPagina"])){
+            $nArticlesPerPagina=unserialize($_COOKIE['nArticlesPerPagina']);
+        }else{
+            $nArticlesPerPagina=5;
             //Si la agafem i es mes gran de 10 i mes petit de 1 posem 5 per defecte.
-            if($nArticlesPerPagina>10 || $nArticlesPerPagina<1){
-                $nArticlesPerPagina=5;
-            }
         }
+    }
+    if($nArticlesPerPagina>10 || $nArticlesPerPagina<1){
+        //Si no es pot posem 5 per defecte
+        $nArticlesPerPagina=5;
+    }else{
+        setcookie('nArticlesPerPagina',serialize($nArticlesPerPagina));
     }
     return $nArticlesPerPagina;
 }
