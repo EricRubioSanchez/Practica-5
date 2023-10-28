@@ -89,7 +89,6 @@ function mostrarBotons() {
 
 
 
-
 // definim quants post per pagina volem carregar.
 /**
  * Summary of getNArticlesPerPagina
@@ -100,21 +99,16 @@ function getnArticlesPerPagina(){
     $nArticlesPerPagina=5;
     if ($_SERVER["REQUEST_METHOD"]=="GET"){
         //Intentem agafar la variable del formulari.
-        if(isset($_GET["nArticlesPerPagina"])){
-            $nArticlesPerPagina=$_GET["nArticlesPerPagina"];
-        //Intentem agafar la variable desde les cookies
-        }else if(isset($_COOKIE["nArticlesPerPagina"])){
-            $nArticlesPerPagina=unserialize($_COOKIE['nArticlesPerPagina']);
-        }else{
-            $nArticlesPerPagina=5;
-            //Si la agafem i es mes gran de 10 i mes petit de 1 posem 5 per defecte.
-        }
-    }
-    if($nArticlesPerPagina>10 || $nArticlesPerPagina<1){
         //Si no es pot posem 5 per defecte
-        $nArticlesPerPagina=5;
-    }else{
-        setcookie('nArticlesPerPagina',serialize($nArticlesPerPagina));
+        if(!isset($_GET["nArticlesPerPagina"])){
+            $nArticlesPerPagina=5;
+        }else{
+            $nArticlesPerPagina=$_GET["nArticlesPerPagina"];
+            //Si la agafem i es mes gran de 10 i mes petit de 1 posem 5 per defecte.
+            if($nArticlesPerPagina>10 || $nArticlesPerPagina<1){
+                $nArticlesPerPagina=5;
+            }
+        }
     }
     return $nArticlesPerPagina;
 }
