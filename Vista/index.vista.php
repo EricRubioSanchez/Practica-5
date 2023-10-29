@@ -37,7 +37,11 @@
 		<section class="articles"> <!--aqui guardem els articles-->
 			<?php 
 			$articles= mostrarPerPagina();
+			if($articles){
 			echo $articles;
+			}else if( isset( $_SESSION['newsession'])){
+				echo('No hi ha posts, <a href="../Vista/inserir.vista.php">afegeix un</a> ');
+			}
 			?>
 		</section>
 

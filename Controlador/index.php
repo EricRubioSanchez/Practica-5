@@ -150,7 +150,7 @@ function calcularPagines($conexio){
  *  executem la sentencia per mostrar tots els articles dintre del rang de la teva pagina 
  *  multiplicat pel nombre de articles per pagina.
  *  Ho retorna amb text html
- * @return string
+ * @return string|null
  */
 function mostrarPerPagina(){
     $conexio=obrirBDD();
@@ -168,6 +168,9 @@ function mostrarPerPagina(){
             $array=array();
             $result=executarSentencia($setencia,$array,$conexio);
             $conexio=tancarBDD($conexio);
+            if(empty($result)){
+                return;
+            }
             $articlesPerPagina.="<ul>";
             $result=array_slice($result,($nPagina*$nArticlesPerPagina-$nArticlesPerPagina),($nArticlesPerPagina));
             //Creacio del text HTML

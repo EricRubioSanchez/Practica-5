@@ -19,8 +19,8 @@ require_once'../Controlador/navbar.php';
 				</div>
 				</li>
 			<?php else: ?>
-				<li class="logs <?php echo($logarseActive) ?>"><a href="../Vista/logarse.vista.php">Logar-se</a></li>
-				<li class="logs <?php echo($enregistrarseActive) ?>"><a href="../Vista/enregistrarse.vista.php">Enregistrar-se</a></li>
+				<li class="logs <?php echo($logarseActive) ?>"><a href="../Vista/logarse.vista.php">Logar-in</a></li>
+				<li class="logs <?php echo($enregistrarseActive) ?>"><a href="../Vista/enregistrarse.vista.php">Sign-up</a></li>
             <?php endif; ?>
 		</ul>
 	</nav>
