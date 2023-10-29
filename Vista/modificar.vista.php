@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">  
     <link rel="stylesheet" type="text/css" href="../Estils/estils.css">
+    <script defer src="../Controlador/dropdown.js"></script> 
     <link rel="stylesheet" type="text/css" href="../Estils/estilForms.css">
     <title>Modificar</title>
 </head>
@@ -16,19 +17,9 @@
 	    header("Location: ../Vista/index.vista.php");
         exit();}
     ?>
-    <nav>
-		<ul>
-			<li ><a href="../Vista/index.vista.php">Articles</a></li>
-			<?php if( isset( $_SESSION['newsession'])):?>
-				<li ><a href="../Vista/inserir.vista.php">Inserir</a></li>
-				<li class="active"><a href="../Vista/modificar.vista.php">Modificar</a></li>
-				<li ><a href="../Vista/esborrar.vista.php">Esborrar</a></li>
-				<li class="logs"><a href="../Controlador/logout.php">Sortir</a></li>
-                <li class="logs"><a href="../Vista/canviarContrasenya.vista.php">Canviar Contrasenya</a></li>
-				<li class="logs"><?php echo("Hola, ".$_SESSION['nom'] );?></li>
-            <?php endif; ?>
-		</ul>
-	</nav>
+    
+    <?php require_once'../Vista/navbar.vista.php'; ?>
+
     <div class="container">
         <div>
         <h1 class="box">Modificar</h1>

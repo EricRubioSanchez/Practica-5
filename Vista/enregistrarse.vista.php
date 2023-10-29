@@ -4,20 +4,15 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">  
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
+    <script defer src="../Controlador/dropdown.js"></script>   
 	<link rel="stylesheet" href="../Estils/estils.css"> <!-- feu referència al vostre fitxer d'estils -->
     <link rel="stylesheet" href="../Estils/estilForms.css"> <!-- feu referència al vostre fitxer d'estils -->
 	<title>Registrar</title>
 </head>
 <body>
-	<?php include_once'../Controlador/enregistrarse.php' ?>
-    <nav>
-		<ul>
- 			<li><a href="../Vista/index.vista.php">Articles</a></li>
-  			<li class="logs"><a href="../Vista/logarse.vista.php">Logar-se</a></li>
-			<li class="logs active"><a href="../Vista/enregistrarse.vista.php">Enregistrar-se</a></li>
-		</ul>
-	</nav>
+	<?php include_once'../Controlador/enregistrarse.php'; 
+    require_once'../Vista/navbar.vista.php';?>
     <form action="../Controlador/enregistrarse.php" method="post">
             <label><h1>Enregistrar</h1></label>
             <br>
