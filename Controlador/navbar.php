@@ -9,4 +9,5 @@ $esborrarActive = $file == "esborrar.vista" ? "active" : "";
 $inserirActive = $file == "inserir.vista" ? "active" : "";
 $logarseActive = $file == "logarse.vista" ? "active" : "";
 $modificarActive = $file == "modificar.vista" ? "active" : "";
+$meusArticlesActive = $file == "meusArticles.vista" ? "active" : "";
 ?>
