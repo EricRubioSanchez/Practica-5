@@ -11,12 +11,16 @@
     <title>Canviar Contrasenya</title>
 </head>
 <body>
-    <?php if( !isset( $_SESSION['newsession'])){session_start();} ?>
+    <?php if ($_SERVER["REQUEST_METHOD"]=="GET"){
+        echo($_GET["correu"]);
+        echo($_GET["token"]);
+        session_start();
+        $correu=$_GET["correu"];
+        $token=$_GET["token"];
+        $_SESSION["correu"]=$correu;
+        $_SESSION["token"]=$token;
+    } ?>
     <!-- Retorna a la pagina de articles si es tanca la sessió -->
-    <?php if( !isset( $_SESSION['newsession'])){
-	    header("Location: ../Vista/index.vista.php");
-        exit();}
-    ?>
     <?php require_once'../Vista/navbar.vista.php'; ?>
     <div class="container">
         <div>
@@ -33,9 +37,6 @@
                     <input type="password" name="password2" required value="<?php if(isset($password2)){echo $password2;}?>">
                 </label>
                 <br>
-                <label> Contrasenya Antiga
-                    <input type="password" name="oldpassword" required value="<?php if(isset($oldpassword)){echo $oldpassword;}?>">
-                </label>
                 <br>
                 <?php if (!empty($errors)):?>
                     <div><?php

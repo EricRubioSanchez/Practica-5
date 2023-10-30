@@ -40,9 +40,11 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
             $correcte.="Usuari trobat a la base de dades.<br>";
             try{
                 //No es pot desencriptar la contrasenya guardada a la base de dades pel tipus d'encriptació
-                //Així que li assigno 1234 de contrasenya i que quan entri la canviï. 
-                canviarContrasenya($correu,password_hash("1234",PASSWORD_BCRYPT));
-                enviarcorreuPHPMailer($correu,"1234");
+                //Així que li assigno 1234 de contrasenya i que quan entri la canviï.
+                $token = generaTokenPass($correu); 
+                $url='http://'.$_SERVER["SERVER_NAME"].'/UF1/Practica%205/Vista/canviarContrasenya.vista.php?correu='.$correu.'&token='.$token;
+                $cuerpo="Bones <br/><br/> Heu solicitat un reinici de la contrasenya.<br/><br/>Per a restaurar la contrsenya visita la següent direcció: <a href='$url'>$url</a>";
+                enviarcorreuPHPMailer($correu,$cuerpo);
                 $correcte.="Correu Enviat";
             }
             catch(Exception $e){

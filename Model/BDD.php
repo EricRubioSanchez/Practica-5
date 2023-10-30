@@ -74,6 +74,47 @@ function crearUsuari($nom,$correu,$password){
 }
 
 /**
+ * Summary of generaTokenPass
+ *  Genera i agrega un token a la base de dades.
+ * @param String $correu
+ * @return string $token
+ */
+function generaTokenPass($correu){
+  $conexio=obrirBDD();
+    if(!is_null($conexio)){
+      $token = bin2hex(openssl_random_pseudo_bytes(16));
+
+      $setencia = "UPDATE usuaris  SET reset_token=:token WHERE correu=:correu";
+      $array=array(':token' => $token,':correu' => $correu);
+
+      executarSentencia($setencia,$array,$conexio);
+
+      $conexio=tancarBDD($conexio);
+      return $token;
+    }
+}
+/**
+ * Summary of comprovarToken
+ *  comprova que el token de la pagina web sigui el mateix que el que esta guardat a la base de dades.
+ * @param String $correu
+* @param String $token
+ * @return void
+ */
+function comprovarToken($token,$correu){
+  $conexio=obrirBDD();
+    if(!is_null($conexio)){
+      $setencia = "SELECT COUNT(*) FROM usuaris  WHERE correu=:correu AND reset_token=:token";
+      $array=array(':correu' => $correu,':token' => $token);
+
+      $result=executarSentencia($setencia,$array,$conexio);
+
+      $conexio=tancarBDD($conexio);
+      if($result[0]["COUNT(*)"]==1){return true;
+
+      }else{return false;}
+    }
+}
+/**
  * Summary of existeixUsuari
  *  si existeix l'usuari no fa res si no existeix retorna un exception
  * @param String $correu
