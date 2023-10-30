@@ -14,7 +14,7 @@ require_once'../Controlador/navbar.php';
 						<ul>
 						<li><a href="../Controlador/logout.php">Sortir</a></li>
 						<li class=<?php echo($canviarContrasenyaActive) ?>><a href="../Vista/canviarContrasenya.vista.php">Canviar Contrasenya</a></li>
-						<li><a href="esborrarUsuari.php" onclick="return confirm('Estàs segur que vols esborrar el teu conte?')">Donar-se de baixa</a></li>
+						<li><a href="../Controlador/esborrarUsuari.php" onclick="return confirm('Estàs segur que vols esborrar el teu conte?')">Donar-se de baixa</a></li>
 						<li class=<?php echo($meusArticlesActive) ?>><a href="../Vista/meusArticles.vista.php">Els meus articles</a></li>
 						</ul>
 					</div>

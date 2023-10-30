@@ -212,4 +212,27 @@ function canviarContrasenya($correu,$password){
   
 }
 
+/**
+ * Summary of esborrarUsuari
+ * @param string $correu
+ * @return void
+ */
+function esborrarUsuari($correu){
+  $conexio=obrirBDD();
+  $setencia = 'SELECT id FROM usuaris WHERE correu =:correu';
+  $array=array(':correu' => $correu);
+  $result=executarSentencia($setencia,$array,$conexio);
+  $id=$result[0]["id"];
+  //Eliminen primer els articles del usuari.
+  $setencia = 'DELETE FROM articles WHERE id_usuari = :userId';
+  $array=array(':userId' => $id);
+  executarSentencia($setencia,$array,$conexio);
+  //I ara al usuari.
+  $setencia = 'DELETE FROM usuaris WHERE id = :userId';
+  $array=array(':userId' => $id);
+  executarSentencia($setencia,$array,$conexio);
+  $conexio=tancarBDD($conexio); 
+  
+}
+
 ?>
