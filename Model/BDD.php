@@ -75,7 +75,7 @@ function crearUsuari($nom,$correu,$password){
 
 /**
  * Summary of generaTokenPass
- *  Genera i agrega un token a la base de dades.
+ *  Genera i agrega un token a la base de dades amb una data d'expiració de 2 hores.
  * @param String $correu
  * @return string $token
  */
@@ -84,7 +84,7 @@ function generaTokenPass($correu){
     if(!is_null($conexio)){
       $token = bin2hex(openssl_random_pseudo_bytes(16));
 
-      $setencia = "UPDATE usuaris  SET reset_token=:token WHERE correu=:correu";
+      $setencia = "UPDATE usuaris  SET reset_token=:token, expires=NOW() + INTERVAL 2 HOUR WHERE correu=:correu";
       $array=array(':token' => $token,':correu' => $correu);
 
       executarSentencia($setencia,$array,$conexio);
@@ -95,14 +95,18 @@ function generaTokenPass($correu){
 }
 /**
  * Summary of comprovarToken
- *  comprova que el token de la pagina web sigui el mateix que el que esta guardat a la base de dades.
+ *  comprova que el token de la pagina web sigui el mateix que el que esta guardat a la base de dades i que no estigui caducat.
  * @param String $correu
-* @param String $token
+ * @param String $token
  * @return void
  */
 function comprovarToken($token,$correu){
   $conexio=obrirBDD();
     if(!is_null($conexio)){
+      $sentencia=("DELETE FROM forgot WHERE expires < NOW()");
+      $array=array();
+      executarSentencia($sentencia,$array,$conexio);
+
       $setencia = "SELECT COUNT(*) FROM usuaris  WHERE correu=:correu AND reset_token=:token";
       $array=array(':correu' => $correu,':token' => $token);
 

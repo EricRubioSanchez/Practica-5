@@ -51,7 +51,6 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
         $correcte="Totes les dades son correctes <br>";
        
         try{
-            echo($correu);
             if(!isset($correu)){
                 $correu=$_SESSION['newsession'];
             }

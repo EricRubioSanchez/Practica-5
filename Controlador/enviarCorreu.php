@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
                 //Així que li assigno 1234 de contrasenya i que quan entri la canviï.
                 $token = generaTokenPass($correu); 
                 $url='http://'.$_SERVER["SERVER_NAME"].'/UF1/Practica%205/Vista/canviarContrasenya.vista.php?correu='.$correu.'&token='.$token;
-                $cuerpo="Bones <br/><br/> Heu solicitat un reinici de la contrasenya.<br/><br/>Per a restaurar la contrsenya visita la següent direcció: <a href='$url'>$url</a>";
+                $cuerpo="Bones <br/><br/> Heu solicitat un reinici de la contrasenya.<br/><br/>Per a restaurar la contrsenya visita la següent direcció: <a href='$url'>$url</a><br/><br/>Aquest enllaç caducarà a les 2 hores";
                 enviarcorreuPHPMailer($correu,$cuerpo);
                 $correcte.="Correu Enviat";
             }

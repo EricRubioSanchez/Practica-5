@@ -11,9 +11,7 @@
     <title>Canviar Contrasenya</title>
 </head>
 <body>
-    <?php if ($_SERVER["REQUEST_METHOD"]=="GET"){
-        echo($_GET["correu"]);
-        echo($_GET["token"]);
+    <?php if ($_SERVER["REQUEST_METHOD"]=="GET"&& isset($_GET["correu"])){
         session_start();
         $correu=$_GET["correu"];
         $token=$_GET["token"];
