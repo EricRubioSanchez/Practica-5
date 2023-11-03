@@ -103,7 +103,7 @@ function generaTokenPass($correu){
 function comprovarToken($token,$correu){
   $conexio=obrirBDD();
     if(!is_null($conexio)){
-      $sentencia=("DELETE FROM forgot WHERE expires < NOW()");
+      $sentencia=("UPDATE usuaris  SET reset_token=null, expires=null WHERE expires< NOW();");
       $array=array();
       executarSentencia($sentencia,$array,$conexio);
 

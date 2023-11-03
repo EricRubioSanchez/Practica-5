@@ -38,9 +38,19 @@
                     ?>
                 </div>
             <?php endif ?>
-            <div class="g-recaptcha" data-sitekey="6LdnHfAoAAAAAO8zdqxXLTWbI-hFsrOb-edlEAUn">
-
-            </div>
+            <br>
+            
+            <?php 
+            if(!isset($_SESSION["contrasenyaErronea"])){session_start();}
+            
+            if(isset($_SESSION["contrasenyaErronea"])){
+            $contrasenyaErronea= $_SESSION["contrasenyaErronea"];
+            }
+            if (isset($contrasenyaErronea) && $contrasenyaErronea>=3):?>
+                <div class="g-recaptcha" data-sitekey="6LdnHfAoAAAAAO8zdqxXLTWbI-hFsrOb-edlEAUn">
+                </div>
+            <?php endif ?>
+            
             <input type="submit" value="Enviar">
             <a href="../Vista/enviarCorreu.vista.php">Recuperar Contrasenya</a>
         </form>

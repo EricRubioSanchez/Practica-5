@@ -10,7 +10,7 @@ require_once("../Controlador/session.php");
  * @param String $password la contrasenya del usuari.
  * @return String retorna un string de errors separats per <br>
  */
-function validarDades($correu,$password,$respuesta){
+function validarDades($correu,$password){
     $errors="";
     if(empty($correu)){
         $errors.="Correu buit <br>";
@@ -20,10 +20,6 @@ function validarDades($correu,$password,$respuesta){
     if(empty($password)){
         $errors.="Contrasenya buit <br>";
     }
-    $atributos = json_decode($respuesta,TRUE);
-    if(!$atributos['success']){
-        $errors.="Verificar captcha <br>";
-    }
     return $errors;
 /*action="<?php echo $_SERVER["PHP_SELF"];?>"id= "form"*/    
 }
@@ -32,20 +28,25 @@ function validarDades($correu,$password,$respuesta){
 
 if ($_SERVER["REQUEST_METHOD"]=="POST"){
     //Agafem les variables del formulari i les enviem a una funcio del controlador en la que tartem d'evitar l'injeccio de codi.
-
+    $errors="";
     $correu = tractarDades($_POST["correu"]);
     $password = tractarDades($_POST["password"]);
-
-    $ip = $_SERVER['REMOTE_ADDR'];
-    $captcha = $_POST['g-recaptcha-response'];
-    $secretkey = "6LdnHfAoAAAAABtPplKSzUwnQSGNlI6YJWOSzfTt";
-
-    $respuesta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretkey&response=$captcha&remoteip=$ip");
-
+    session_start();
+    if(isset($_SESSION["contrasenyaErronea"])){$contrasenyaErronea=$_SESSION["contrasenyaErronea"];}
+    if (isset($contrasenyaErronea) && $contrasenyaErronea>=3){
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $captcha = $_POST['g-recaptcha-response'];
+        $secretkey = "6LdnHfAoAAAAABtPplKSzUwnQSGNlI6YJWOSzfTt";
+        $respuesta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretkey&response=$captcha&remoteip=$ip");
+        $atributos = json_decode($respuesta,TRUE);
+        if(!$atributos['success']){
+            $errors.="Verificar captcha <br>";
+    }
+    }
     
 
     //Crida la funcio validarDades on em retorna un string amb tots els erros de les validacions.
-    $errors=validarDades($correu,$password,$respuesta);
+    $errors.=validarDades($correu,$password);
     $correcte="";
 
     if($errors==""){
@@ -55,10 +56,13 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
             try{
                 if(comprovarContrasenya($correu,$password)){
                     iniciarSession($correu,$nom);
-            }else{$errors.= "Contrasenya incorrecte.<br>";}
+            }else{
+                if(!isset($_SESSION["contrasenyaErronea"])){$_SESSION["contrasenyaErronea"]=0;}
+                $contrasenyaErronea=$_SESSION["contrasenyaErronea"]+1;
+                $_SESSION["contrasenyaErronea"]=$contrasenyaErronea;
+                $errors.= "Contrasenya incorrecte.<br>";}
             }
             catch(Exception $e){
-                $errors.= "Contrasenya incorrecte.<br>";
             }
         }catch(Exception $e){
             $errors.= "L'Usuari no existeix a la base de dades.<br>";
