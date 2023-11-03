@@ -10,7 +10,7 @@ require_once("../Controlador/session.php");
  * @param String $password la contrasenya del usuari.
  * @return String retorna un string de errors separats per <br>
  */
-function validarDades($correu,$password){
+function validarDades($correu,$password,$respuesta){
     $errors="";
     if(empty($correu)){
         $errors.="Correu buit <br>";
@@ -20,11 +20,15 @@ function validarDades($correu,$password){
     if(empty($password)){
         $errors.="Contrasenya buit <br>";
     }
+    $atributos = json_decode($respuesta,TRUE);
+    if(!$atributos['success']){
+        $errors.="Verificar captcha <br>";
+    }
     return $errors;
 /*action="<?php echo $_SERVER["PHP_SELF"];?>"id= "form"*/    
 }
 
-
+//https://www.youtube.com/watch?v=1rLBjRF0ep0
 
 if ($_SERVER["REQUEST_METHOD"]=="POST"){
     //Agafem les variables del formulari i les enviem a una funcio del controlador en la que tartem d'evitar l'injeccio de codi.
@@ -32,8 +36,16 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
     $correu = tractarDades($_POST["correu"]);
     $password = tractarDades($_POST["password"]);
 
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $captcha = $_POST['g-recaptcha-response'];
+    $secretkey = "6LdnHfAoAAAAABtPplKSzUwnQSGNlI6YJWOSzfTt";
+
+    $respuesta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretkey&response=$captcha&remoteip=$ip");
+
+    
+
     //Crida la funcio validarDades on em retorna un string amb tots els erros de les validacions.
-    $errors=validarDades($correu,$password);
+    $errors=validarDades($correu,$password,$respuesta);
     $correcte="";
 
     if($errors==""){

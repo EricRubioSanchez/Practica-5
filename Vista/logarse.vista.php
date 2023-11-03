@@ -8,6 +8,7 @@
     <script defer src="../Controlador/dropdown.js"></script>   
 	<link rel="stylesheet" href="../Estils/estils.css"> <!-- feu referència al vostre fitxer d'estils -->
     <link rel="stylesheet" href="../Estils/estilForms.css"> <!-- feu referència al vostre fitxer d'estils -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	<title>Log-IN</title>
 </head>
 <body>
@@ -37,6 +38,9 @@
                     ?>
                 </div>
             <?php endif ?>
+            <div class="g-recaptcha" data-sitekey="6LdnHfAoAAAAAO8zdqxXLTWbI-hFsrOb-edlEAUn">
+
+            </div>
             <input type="submit" value="Enviar">
             <a href="../Vista/enviarCorreu.vista.php">Recuperar Contrasenya</a>
         </form>
