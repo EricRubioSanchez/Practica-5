@@ -21,6 +21,8 @@ function tractarDades($data) {
  * @return void
  */
 function iniciarSession($usuari,$nom){
+    ini_set('session.gc_maxlifetime', 1500);
+    ini_set('session.cookie-lifetime', 1500);
     session_start();
     $_SESSION["newsession"]=$usuari;
     $_SESSION["nom"]=$nom;

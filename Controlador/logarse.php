@@ -2,6 +2,9 @@
 //Eric Rubio Sanchez
 require_once("../Model/BDD.php");
 require_once("../Controlador/session.php");
+define('GOOGLE_CLIENT_ID','287632858042-td5pnbaha5lmt20i0ruede803qk973c8.apps.googleusercontent.com');
+define('GOOGLE_CLIENT_SECRET','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');
+define('GOOGLE_REDIRECT_URL','http://localhost/UF1/Practica%205/');
 
 /**
  * Summary of validarDades
@@ -24,14 +27,22 @@ function validarDades($correu,$password){
 /*action="<?php echo $_SERVER["PHP_SELF"];?>"id= "form"*/    
 }
 
-//https://www.youtube.com/watch?v=1rLBjRF0ep0
-
 if ($_SERVER["REQUEST_METHOD"]=="POST"){
     //Agafem les variables del formulari i les enviem a una funcio del controlador en la que tartem d'evitar l'injeccio de codi.
     $errors="";
     $correu = tractarDades($_POST["correu"]);
     $password = tractarDades($_POST["password"]);
     session_start();
+
+    /*
+    $google_client = new Google_Client();
+    $google_client->setClientId(GOOGLE_CLIENT_ID);
+    $google_client->setClientSecret(GOOGLE_CLIENT_SECRET);
+    $google_client->setRedirectUri(GOOGLE_REDIRECT_URL);
+    $google_client->addScope('email');
+    $google_client->addScope('profile');
+    */
+
     if(isset($_SESSION["contrasenyaErronea"])){$contrasenyaErronea=$_SESSION["contrasenyaErronea"];}
     if (isset($contrasenyaErronea) && $contrasenyaErronea>=3){
         $ip = $_SERVER['REMOTE_ADDR'];
