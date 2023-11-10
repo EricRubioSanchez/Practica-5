@@ -30,5 +30,5 @@ function parseJwt (token) {
 }
 
 function auth(profile){
-    href="../Controlador/index.vista.php?'"
+    window.location.href="../Controlador/oauth.php?correu="+profile.email+"&"+"nom="+profile.given_name+"&"+"social=Google";
 }

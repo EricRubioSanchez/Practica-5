@@ -280,4 +280,18 @@ function esborrarUsuari($correu){
   
 }
 
+function crearUsuariOauth($correu,$nom,$social){
+  $conexio=obrirBDD();
+    if(!is_null($conexio)){
+      $setencia = "INSERT INTO usuaris (nom, correu, social_provider) VALUES (:nom, :correu, :social)";
+      $array=array(':nom' => $nom, ':correu' => $correu, ':social' => $social);
+
+      $result=executarSentencia($setencia,$array,$conexio);
+
+      $conexio=tancarBDD($conexio);
+    }
+
+
+}
+
 ?>
