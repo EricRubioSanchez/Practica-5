@@ -123,6 +123,7 @@ function getnArticlesPerPagina2(){
 function calcularPagines2($conexio){
     $nArticlesPerPagina = getnArticlesPerPagina2();
     if(!is_null($conexio)){
+        
 
         try{
             // Calculem el total d'articles per a poder conèixer el número de pàgines de la paginació

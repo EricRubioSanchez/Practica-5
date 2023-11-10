@@ -10,10 +10,14 @@
     <link rel="stylesheet" href="../Estils/estilForms.css"> <!-- feu referència al vostre fitxer d'estils -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	<title>Log-IN</title>
+
+
+
 </head>
 <body>
     
-    <?php require_once'../Vista/navbar.vista.php'; ?>
+    <?php require_once'../Vista/navbar.vista.php';
+    include '../vendor/hybridauth/src/autoload.php'; ?>
 
 	<form action="../Controlador/logarse.php" method="post">
             <label><h1>Logarse</h1></label>
@@ -53,6 +57,17 @@
             
             <input type="submit" value="Enviar">
             <a href="../Vista/enviarCorreu.vista.php">Recuperar Contrasenya</a>
+
+            
+            <div id="g_id_onload"
+                data-client_id="287632858042-td5pnbaha5lmt20i0ruede803qk973c8.apps.googleusercontent.com"
+                data-callback="onSignIn">
+                
+            </div>
+            <div class="g_id_signin" data-type="standard"></div>
+
         </form>
 </body>
 </html>
+<script src="../Controlador/signin.mjs"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>

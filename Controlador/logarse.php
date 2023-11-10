@@ -2,9 +2,7 @@
 //Eric Rubio Sanchez
 require_once("../Model/BDD.php");
 require_once("../Controlador/session.php");
-define('GOOGLE_CLIENT_ID','287632858042-td5pnbaha5lmt20i0ruede803qk973c8.apps.googleusercontent.com');
-define('GOOGLE_CLIENT_SECRET','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');
-define('GOOGLE_REDIRECT_URL','http://localhost/UF1/Practica%205/');
+
 
 /**
  * Summary of validarDades
@@ -35,6 +33,9 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
     session_start();
 
     /*
+    define('GOOGLE_CLIENT_ID','287632858042-td5pnbaha5lmt20i0ruede803qk973c8.apps.googleusercontent.com');
+    define('GOOGLE_CLIENT_SECRET','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');
+    define('GOOGLE_REDIRECT_URL','http://localhost/UF1/Practica%205/');
     $google_client = new Google_Client();
     $google_client->setClientId(GOOGLE_CLIENT_ID);
     $google_client->setClientSecret(GOOGLE_CLIENT_SECRET);
