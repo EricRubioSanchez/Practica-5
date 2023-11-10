@@ -1,6 +1,5 @@
 <?php 
 //Eric Rubio Sanchez
-//Ex6
 require_once '../Model/BDD.php';
 
 session_start();

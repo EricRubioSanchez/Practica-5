@@ -126,9 +126,14 @@ function calcularPagines2($conexio){
         
 
         try{
+            //Agafem la id del usuari per buscarla en els articles.
+            $setencia = "SELECT id FROM usuaris WHERE correu=:correu";
+            $array=array(':correu' => $_SESSION['newsession']);
+             $result=executarSentencia($setencia,$array,$conexio);
+
             // Calculem el total d'articles per a poder conèixer el número de pàgines de la paginació
-            $setencia = "SELECT * FROM articles;";
-            $array=array();
+            $setencia = "SELECT * FROM articles WHERE id_usuari=:id;";
+            $array=array(':id' => $result[0]["id"]);
             $result=executarSentencia($setencia,$array,$conexio);
 
             // Comprovem que hagui articles, en cas contrari, rediriguim

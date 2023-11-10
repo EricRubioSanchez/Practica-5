@@ -1,6 +1,8 @@
 <?php
+//agafa el arxiu actual en el que esta com a string.
 $file = pathinfo($_SERVER['PHP_SELF'])['filename'];
-    
+
+//Ho comprova amb tots els arxius de vista per veure si es troba en algun.
 $indexActive = $file == "index.vista" ? "active" : "";
 $canviarContrasenyaActive = $file== "canviarContrasenya.vista" ? "active" : "";
 $enregistrarseActive = $file == "enregistrarse.vista" ? "active" : "";

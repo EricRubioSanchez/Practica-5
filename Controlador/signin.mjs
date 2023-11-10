@@ -3,6 +3,7 @@
 
 //import {jwtDecrypt}  from '../Controlador/jose-main/';
 
+
 globalThis.onSignIn = (googleUser) => {
     console.log(googleUser.credential);
     googleUser= parseJwt(googleUser.credential);
@@ -19,6 +20,7 @@ globalThis.onSignIn = (googleUser) => {
     auth(profile);
 }
 
+//Funcion que desencripta el codigo JWT
 function parseJwt (token) {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -29,6 +31,7 @@ function parseJwt (token) {
     return JSON.parse(jsonPayload);
 }
 
+//redirige al oauth para tratar las dadas desde el php.
 function auth(profile){
     window.location.href="../Controlador/oauth.php?correu="+profile.email+"&"+"nom="+profile.given_name+"&"+"social=Google";
 }
