@@ -10,10 +10,11 @@
 	<title>Articles</title>
 </head>
 <body>
-	<?php include_once'../Controlador/index.php';
-	session_start();
-	require_once'../Vista/navbar.vista.php';?>
 	
+	<?php
+	session_start();
+	include_once'../Controlador/index.php';
+	require_once'../Vista/navbar.vista.php';?>
 	<div class="contenidor">
 		<h1>Articles</h1>
 
